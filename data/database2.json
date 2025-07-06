@@ -1,0 +1,163 @@
+[
+    {
+        "constructor": "Constructor Name",
+        "project_name": "Project Name",
+        "project_id": "Project ID",
+        "layers": [
+            "Site Preparation",
+            "Base and Sub-base Preparation"
+        ],
+        "total_distance_km": 20,
+        "time_required_months": 12,
+        "location": "Start Location to End Location",
+        "updates": [
+            {
+                "date": "2024-12-12",
+                "batch_number": 1,
+                "layer": "Site Preparation",
+                "confidence": "92.71%",
+                "distance_covered": 52.48655056278821,
+                "start_coordinates": [
+                    19.171715,
+                    73.266856
+                ],
+                "end_coordinates": [
+                    19.172142,
+                    73.266643
+                ],
+                "frame_path": "assets/uploaded_images\\batch1_Site_Preparation.jpg",
+                "timestamp": "16:19:59"
+            }
+        ]
+    },
+    {
+        "constructor": "XYZ",
+        "project_name": "Highway001",
+        "project_id": "712118",
+        "layers": [
+            "Site Preparation",
+            "Surface Preparation",
+            "Asphalt Laying and Finishing"
+        ],
+        "total_distance_km": 20.0,
+        "time_required_months": 12,
+        "location": "CSMT to Dadar",
+        "updates": [
+            {
+                "date": "2024-12-12",
+                "batch_number": 1,
+                "layer": "Site Preparation",
+                "confidence": "92.71%",
+                "distance_covered": 52.48655056278821,
+                "start_coordinates": [
+                    19.171715,
+                    73.266856
+                ],
+                "end_coordinates": [
+                    19.172142,
+                    73.266643
+                ],
+                "frame_path": "assets/uploaded_images\\batch1_Site_Preparation.jpg",
+                "timestamp": "16:27:47"
+            },
+            {
+                "date": "2024-12-12",
+                "batch_number": 1,
+                "layer": "Asphalt Finishing",
+                "confidence": "77.09%",
+                "distance_covered": 50.2781692799976,
+                "start_coordinates": [
+                    19.182447,
+                    73.26094
+                ],
+                "end_coordinates": [
+                    19.182851,
+                    73.260725
+                ],
+                "frame_path": "assets/uploaded_images\\batch2_Asphalt_Finishing.jpg",
+                "timestamp": "16:47:07"
+            }
+        ]
+    },
+    {
+        "constructor": "Constructor XYZ",
+        "project_name": "Highway Construction",
+        "project_id": "9324576",
+        "layers": [
+            "Site Preparation",
+            "Surface Preparation",
+            "Asphalt Laying and Finishing"
+        ],
+        "total_distance_km": 10.0,
+        "time_required_months": 4,
+        "location": "Dombivli to Thane",
+        "updates": [
+            {
+                "date": "2024-12-21",
+                "batch_number": 1,
+                "layer": "Site Preparation",
+                "confidence": "92.71%",
+                "distance_covered": 52.48655056278821,
+                "start_coordinates": [
+                    19.171715,
+                    73.266856
+                ],
+                "end_coordinates": [
+                    19.172142,
+                    73.266643
+                ],
+                "frame_path": "assets/uploaded_images\\batch1_Site_Preparation.jpg",
+                "timestamp": "15:34:07"
+            },
+            {
+                "date": "2024-12-21",
+                "batch_number": 1,
+                "layer": "Surface Preparation",
+                "confidence": "92.65%",
+                "distance_covered": 41.890926049679805,
+                "start_coordinates": [
+                    19.182533,
+                    73.261008
+                ],
+                "end_coordinates": [
+                    19.182872,
+                    73.260834
+                ],
+                "frame_path": "assets/uploaded_images\\batch2_Surface_Preparation.jpg",
+                "timestamp": "15:34:56"
+            },
+            {
+                "date": "2024-12-21",
+                "batch_number": 1,
+                "layer": "Asphalt Finishing",
+                "confidence": "77.09%",
+                "distance_covered": 50.2781692799976,
+                "start_coordinates": [
+                    19.182447,
+                    73.26094
+                ],
+                "end_coordinates": [
+                    19.182851,
+                    73.260725
+                ],
+                "frame_path": "assets/uploaded_images\\batch3_Asphalt_Finishing.jpg",
+                "timestamp": "15:35:27"
+            }
+        ]
+    },
+    {
+        "constructor": "Hemant Construction",
+        "project_name": "Lalji Road",
+        "project_id": "12345",
+        "layers": [
+            "Site Preparation",
+            "Base and Sub-base Preparation",
+            "Surface Preparation",
+            "Asphalt Laying and Finishing"
+        ],
+        "total_distance_km": 20.0,
+        "time_required_months": 12,
+        "location": "CSMT to Dadar",
+        "updates": []
+    }
+]

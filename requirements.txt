@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+streamlit
+torch
+torchvision
+numpy
+pandas
+plotly
+folium
+haversine
+opencv-python
+reportlab
+matplotlib
