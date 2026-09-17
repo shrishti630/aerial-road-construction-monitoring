@@ -24,9 +24,10 @@ ENV/
 # Model checkpoints
 *.pth
 
-# Uploaded files
+# Uploaded and media files
 uploads/
 assets/uploaded_images/
+construction_video_srt_files/*.MP4
 
 # OS-specific
 .DS_Store
