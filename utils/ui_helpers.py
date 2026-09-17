@@ -1,21 +1,31 @@
-import matplotlib.pyplot as plt
 import datetime
+import matplotlib.pyplot as plt
 import streamlit as st
 
 def render_header(title, icon="📋"):
     st.markdown(f"<h2 style='text-align: center;'>{icon} {title}</h2>", unsafe_allow_html=True)
 
 def plot_distance_coverage(updates):
-    dates = [datetime.datetime.strptime(update["date"], "%Y-%m-%d") for update in updates]
-    distances = [update["distance_covered"] for update in updates]
+    if not updates:
+        st.info("No update data available to plot.")
+        return
+    dates = [datetime.datetime.strptime(update["date"], "%Y-%m-%d") for update in updates if "date" in update]
+    distances = [update["distance_covered"] for update in updates if "distance_covered" in update]
+    if not dates or not distances:
+        return
     fig, ax = plt.subplots()
     ax.plot(dates, distances, marker="o", linestyle="-")
     ax.set_xlabel("Date")
     ax.set_ylabel("Distance Covered (meters)")
     ax.set_title("Distance Coverage Over Time")
+    fig.autofmt_xdate()
     st.pyplot(fig)
+    plt.close(fig)
 
 def work_speed_trend(updates):
+    if not updates or len(updates) < 2:
+        st.info("Need at least 2 updates to calculate work speed trend.")
+        return
     dates = [datetime.datetime.strptime(update["date"], "%Y-%m-%d") for update in updates]
     distances = [update["distance_covered"] for update in updates]
     daily_speeds = []
@@ -29,25 +39,24 @@ def work_speed_trend(updates):
     ax.set_xlabel("Date")
     ax.set_ylabel("Work Speed (meters/day)")
     ax.set_title("Work Speed Trend")
+    fig.autofmt_xdate()
     st.pyplot(fig)
+    plt.close(fig)
 
-# Apply global styles and set the layout to wide
 def apply_global_styles():
-    # Add custom styles
     st.markdown(
         """
         <style>
         div.streamlit-expander {
-            max-width: 100%; /* Full width */
-            margin: auto;    /* Center the content */
-        }
-
-        section.main {
-            max-width: 1600px; /* Adjust to your desired width */
+            max-width: 100%;
             margin: auto;
         }
 
-        /* Optional: Add styling for scrollbars or other elements */
+        section.main {
+            max-width: 1600px;
+            margin: auto;
+        }
+
         ::-webkit-scrollbar {
             width: 8px;
         }

@@ -1,1 +1,1 @@
-from . import dashboard_constructor
+# pages package

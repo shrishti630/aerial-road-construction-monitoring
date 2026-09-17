@@ -18,8 +18,8 @@ dist/
 venv/
 ENV/
 
-# Streamlit cache
-.streamlit/
+.streamlit/*
+!.streamlit/config.toml
 
 # Model checkpoints
 *.pth

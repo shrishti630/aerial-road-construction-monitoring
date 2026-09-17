@@ -50,4 +50,7 @@ def render_logout_button():
         # Clear all session states on logout
         for key in list(st.session_state.keys()):
             del st.session_state[key]
-        st.experimental_rerun()
+        if hasattr(st, "rerun"):
+            st.rerun()
+        else:
+            st.experimental_rerun()

@@ -25,7 +25,7 @@
                     19.172142,
                     73.266643
                 ],
-                "frame_path": "assets/uploaded_images\\batch1_Site_Preparation.jpg",
+                "frame_path": "assets/uploaded_images//batch1_Site_Preparation.jpg",
                 "timestamp": "16:19:59"
             }
         ]
@@ -57,7 +57,7 @@
                     19.172142,
                     73.266643
                 ],
-                "frame_path": "assets/uploaded_images\\batch1_Site_Preparation.jpg",
+                "frame_path": "assets/uploaded_images//batch1_Site_Preparation.jpg",
                 "timestamp": "16:27:47"
             },
             {
@@ -74,7 +74,7 @@
                     19.182851,
                     73.260725
                 ],
-                "frame_path": "assets/uploaded_images\\batch2_Asphalt_Finishing.jpg",
+                "frame_path": "assets/uploaded_images//batch2_Asphalt_Finishing.jpg",
                 "timestamp": "16:47:07"
             }
         ]
@@ -106,7 +106,7 @@
                     19.172142,
                     73.266643
                 ],
-                "frame_path": "assets/uploaded_images\\batch1_Site_Preparation.jpg",
+                "frame_path": "assets/uploaded_images//batch1_Site_Preparation.jpg",
                 "timestamp": "15:34:07"
             },
             {
@@ -123,7 +123,7 @@
                     19.182872,
                     73.260834
                 ],
-                "frame_path": "assets/uploaded_images\\batch2_Surface_Preparation.jpg",
+                "frame_path": "assets/uploaded_images//batch2_Surface_Preparation.jpg",
                 "timestamp": "15:34:56"
             },
             {
@@ -140,7 +140,7 @@
                     19.182851,
                     73.260725
                 ],
-                "frame_path": "assets/uploaded_images\\batch3_Asphalt_Finishing.jpg",
+                "frame_path": "assets/uploaded_images//batch3_Asphalt_Finishing.jpg",
                 "timestamp": "15:35:27"
             }
         ]

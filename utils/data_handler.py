@@ -2,7 +2,8 @@ import json
 import os
 from datetime import datetime
 
-DB_PATH = "data/database2.json"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DB_PATH = os.path.join(BASE_DIR, "data", "database2.json")
 os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)  # Ensure the database directory exists
 
 def read_database():

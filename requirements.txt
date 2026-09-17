@@ -1,5 +1,3 @@
-fastapi
-uvicorn
 streamlit
 torch
 torchvision
@@ -7,7 +5,9 @@ numpy
 pandas
 plotly
 folium
+streamlit-folium
 haversine
-opencv-python
+opencv-python-headless
 reportlab
 matplotlib
+pillow

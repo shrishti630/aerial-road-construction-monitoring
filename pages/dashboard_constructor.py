@@ -1,12 +1,14 @@
+import os
+import shutil
+import datetime
+import cv2
 import streamlit as st
+from haversine import haversine
 from utils.data_handler import read_database, write_database, add_project_update
 from utils.ui_helpers import apply_global_styles
-import os
 from predict import predict_category
-from haversine import haversine
-import cv2
-import datetime
-import shutil
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Apply global styles for the application
 apply_global_styles()
@@ -14,16 +16,20 @@ apply_global_styles()
 def render():
     if not st.session_state.get("Constructor_authenticated"):
         st.warning("You must log in as Constructor to access this page.")
+        if st.button("Return to Login", key="constructor_goto_login"):
+            st.session_state["current_form"] = "Constructor"
+            st.rerun()
         return
 
-    st.title("Constructor Dashboard")
+    st.title("👷 Constructor Dashboard")
 
     # Logout Button
-    if st.button("Logout"):
+    if st.button("Logout", key="constructor_logout_btn"):
         st.session_state["Constructor_authenticated"] = False
         st.session_state["Constructor_authenticated_user"] = None
         st.session_state["user_role"] = None
         st.session_state["refresh_trigger"] = not st.session_state.get("refresh_trigger", False)
+        st.rerun()
 
     # Navigation Options
     nav_options = ["Add Project Updates"]
@@ -38,7 +44,7 @@ def view_existing_projects():
     database = read_database()
 
     if not database:
-        st.info("No projects found. Start by creating a new project.")
+        st.info("No projects found. Start by creating a new project as Engineer.")
         return
 
     search_query = st.text_input("Search Projects by Name or ID:", key="constructor_search_query").strip().lower()
@@ -118,10 +124,11 @@ def process_project_update(project, video_file, srt_file):
                     "distance_covered": calculate_distance(start_coords, end_coords),
                     "start_coordinates": start_coords,
                     "end_coordinates": end_coords,
-                    "frame_path": layer_frame_path,  # Save renamed frame path
+                    "frame_path": layer_frame_path,  # Save normalized frame path
                 }
                 add_project_update(project["project_id"], new_update)
                 st.success("Project update added successfully!")
+                st.rerun()
             else:
                 st.error(prediction.get("error", "Prediction failed."))
         else:
@@ -133,8 +140,6 @@ def process_project_update(project, video_file, srt_file):
     finally:
         # Clean up temporary files
         cleanup_temp_files([video_path, srt_path, frame_path] if frame_path else [video_path, srt_path])
-
-
 
 
 ### Utility Functions
@@ -174,12 +179,11 @@ def validate_coordinates(project, start_coords, end_coords, layer_name, toleranc
     return None
 
 
-
-
 def save_uploaded_file(uploaded_file, filename):
     """Save the uploaded file to a temporary directory."""
-    file_path = os.path.join("uploads", filename)
-    os.makedirs("uploads", exist_ok=True)
+    upload_dir = os.path.join(BASE_DIR, "uploads")
+    os.makedirs(upload_dir, exist_ok=True)
+    file_path = os.path.join(upload_dir, filename)
     with open(file_path, "wb") as f:
         f.write(uploaded_file.read())
     return file_path
@@ -190,14 +194,18 @@ def extract_frame_from_video(video_path, batch_number):
     try:
         cap = cv2.VideoCapture(video_path)
         frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+        if frame_count <= 0:
+            cap.release()
+            return None
         mid_frame = frame_count // 2
 
         cap.set(cv2.CAP_PROP_POS_FRAMES, mid_frame)
         ret, frame = cap.read()
 
         if ret:
-            temp_frame_path = os.path.join("uploads", f"temp_frame_batch{batch_number}.jpg")
-            os.makedirs("uploads", exist_ok=True)
+            upload_dir = os.path.join(BASE_DIR, "uploads")
+            os.makedirs(upload_dir, exist_ok=True)
+            temp_frame_path = os.path.join(upload_dir, f"temp_frame_batch{batch_number}.jpg")
             cv2.imwrite(temp_frame_path, frame)
             cap.release()
             return temp_frame_path
@@ -210,27 +218,20 @@ def extract_frame_from_video(video_path, batch_number):
 def save_frame_with_dynamic_name(frame_path, batch_number, layer_name):
     """
     Save the extracted frame with a dynamic name based on batch number and layer name.
-
-    Parameters:
-    - frame_path: Original path of the extracted frame.
-    - batch_number: Current batch number.
-    - layer_name: Predicted layer name.
-
-    Returns:
-    - New file path for the renamed frame.
     """
-    os.makedirs("assets/uploaded_images", exist_ok=True)  # Ensure the directory exists
+    target_dir = os.path.join(BASE_DIR, "assets", "uploaded_images")
+    os.makedirs(target_dir, exist_ok=True)
     new_frame_name = f"batch{batch_number}_{layer_name.replace(' ', '_')}.jpg"
-    new_frame_path = os.path.join("assets/uploaded_images", new_frame_name)
+    new_frame_path = os.path.join(target_dir, new_frame_name)
 
     shutil.move(frame_path, new_frame_path)
-    return new_frame_path
+    return os.path.relpath(new_frame_path, BASE_DIR).replace("\\", "/")
 
 
 def extract_coordinates_from_srt(srt_path):
     """Extract the first and last GPS coordinates from the SRT file."""
     try:
-        with open(srt_path, "r") as file:
+        with open(srt_path, "r", encoding="utf-8", errors="ignore") as file:
             lines = file.readlines()
 
         start_line = next((line for line in lines if "latitude" in line and "longitude" in line), None)
@@ -243,7 +244,6 @@ def extract_coordinates_from_srt(srt_path):
     except Exception as e:
         print(f"Error parsing SRT file: {e}")
     return None, None
-
 
 
 def extract_lat_lon(srt_line):
@@ -279,6 +279,8 @@ def cleanup_temp_files(file_paths):
         try:
             if file_path and os.path.exists(file_path):
                 os.remove(file_path)
-                print(f"Deleted temporary file: {file_path}")
         except Exception as e:
             print(f"Error deleting file {file_path}: {e}")
+
+if __name__ == "__main__":
+    render()
